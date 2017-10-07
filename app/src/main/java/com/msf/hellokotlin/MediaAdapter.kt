@@ -9,7 +9,11 @@ import kotlinx.android.synthetic.main.view_media_item.view.*
  * Created by karthick on 10/7/2017.
  */
 
-class MediaAdapter(val items: List<MediaItem>) : RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
+class MediaAdapter(val items: List<MediaItem>, val listener: (MediaItem) -> Unit)
+    : RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
+//    interface onMediaClickListener {
+//        fun onClick(mediaItem: MediaItem)
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //val v = LayoutInflater.from(parent.context).inflate(R.layout.view_media_item, parent, false)
@@ -18,7 +22,9 @@ class MediaAdapter(val items: List<MediaItem>) : RecyclerView.Adapter<MediaAdapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        val item = items[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount(): Int = items.size

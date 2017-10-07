@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(), Logger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recycler.adapter = MediaAdapter(emptyList())
+        recycler.adapter = MediaAdapter(getMedia()) { (title) -> toast(title) }
         d("Hello")
     }
 
