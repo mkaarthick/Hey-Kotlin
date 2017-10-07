@@ -3,8 +3,7 @@ package com.msf.hellokotlin
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import kotlinx.android.synthetic.main.view_media_item.view.*
 
 /**
  * Created by karthick on 10/7/2017.
@@ -25,11 +24,15 @@ class MediaAdapter(val items: List<MediaItem>) : RecyclerView.Adapter<MediaAdapt
     override fun getItemCount(): Int = items.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image = view.findViewById<ImageView>(R.id.mediaImage)
-        val title = view.findViewById<TextView>(R.id.mediaTitle)
-        fun bind(item: MediaItem) {
-            title.text = item.title
-            image.loadURL(item.thumbURL)
+
+        fun bind(item: MediaItem) = with(itemView) {
+            mediaTitle.text = item.title
+            mediaImage.loadURL(item.thumbURL)
+
+            media_video_indicator.visibility = when (item.type) {
+                MediaItem.Type.VIDEO -> View.VISIBLE
+                MediaItem.Type.PHOTO -> View.GONE
+            }
         }
     }
 }
